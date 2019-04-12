@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="lib/leaflet/leaflet.css" crossorigin="">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+        
+    <script src="lib/leaflet/leaflet-src.js" crossorigin=""></script>
+    <script src="lib/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="lib/leaflet.js"></script>
+    <script type="text/javascript" src="js/pertussis_interactive.js"></script>
+    
+        
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">    
+    
+        
+    </head>
+
+	<body>
+        
+        <br><h2 class="container, text-center">Spatial Clustering Analysis of Unvaccinated Kindergarteners in California</h2>
+        <h4 class="container,  text-center">2001-2015</h4><br>
+        
+        <div class="col-12">
+        <p class="container, text-center">For the past 100+ years, vaccines have been revolutionizing healthcare. They provide a relatively low-cost, easy to attain preventative alternative to treatments for otherwise highlhy contagious and common diseases like chickenpox, measles, mumps, the flu, and diptheria. Just in the United States, vaccines are projected to save hundreds of thousands of lives and prevent millions of hospitalizations among children who were born between 1994-2014, but that doesn't stop people from being skeptical of their supposed side-effects. Misinformation runs rampant when it comes to vaccines, so many vaccine-preventable diseases continue to appear in outbreaks where they otherwise could have been eradicated. Pertussis, or whooping cough, is just one example of an easily preventable communicable disease. <br>
+
+        <br>The question is, do children whose parents have chosen not to vaccinate them (prior to 2016, this meant claiming a personal or religious belief exemption) end up clustering in certain schools or regions? And, if these clusters exist, might they be the cause of outbreaks of contagious, vaccine preventable diseases? </p><br>
+        </div>
+        
+		<div class="container" align="left" id="map"></div>
+        
+        <div class="container, text-center">
+            <p>Data Sources: <a href=https://data.chhs.ca.gov/dataset/vaccine-preventable-disease-cases-by-county-and-year>California Department of Public Health</a>, <a href=https://www.cdc.gov/media/releases/2014/p0424-immunization-program.html>Centers for Disease Control and Prevention</a>, <a href=https://www.vaccines.gov/diseases/index.html>Vaccines.gov</a></p>
+        </div><br>
+        
+        <div class="col-12">
+        <div class="container, text-center"><strong><h4>But to understand why vaccines are so important, you need to understand herd immunity.</h4></strong></div></div><br>
+        
+        <div class="container" align="center">
+        <img src="img/herdimmunity.png"></div><br>
+        
+        <div class="col-12">
+        <p class="container, text-center"><strong>Herd immunity</strong> is the idea that when most of the population is vaccinated, those who are to young, too sick, or otherwise medically unable to receive vaccines will be protected from the spread of contagious diseases. For most vaccine preventable diseases, this requires around <strong>85-95% of the population</strong> to be vaccinated.</p></div>
+        
+        <div>
+        <p class="container, text-center">Measles was initially declared eradicated in the United States in 2000. But as you can see, that can not necessarily be said any more. With the rise of vaccine hesitancy comes annual outbreaks of vaccine preventable diseases like measles and pertussis.</p></div><br>
+        
+        <div class="col-12">
+        <p class="container, text-center">Click on the blue circle below and slide from side to side to compare what school-level rates of kindergarteners who were up-to-date on their vaccinations looked like in 2015. The maps compare where herd immunity has been achieved for pertussis versus measles.</p></div><br>
+        
+        <div class="container" align="center">
+        <div class="img-comp-container, col-6">
+            <div class="img-comp-img">
+                <img src="img/pertussis_2015.png" width="470" height="600">
+            </div>
+            <div class="img-comp-img img-comp-overlay">
+                <img src="img/measles_2015.png" width="470" height="600">
+            </div>
+        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            
+        <script type="text/javascript" src="js/imageslider.js"></script>
+            
+        <div class="col-12">
+        <p class="container, text-center">As you can see, the same "hot spots" appear in the same areas of the state in both maps; in other words, areas which are undervaccinated have the potential to cause outbreaks no matter what disease is in question. Since pertussis has a lower threshold for herd immunity than measles (85% versus 95% of children need to be vaccinated), California appears a little safer on the map. However, experts specualte that the pertussis vaccine is becoming less effective over time.</p></div><br>
+
+
+        
+
+        
+        
+        </body>
+    </html>
