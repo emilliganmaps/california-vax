@@ -279,11 +279,11 @@ function getData(map){
 //create a second layer of points for population data
 function getNextLayer(map){
     //load the data
-    $.ajax("data/ca_pop.geojson", {
+    $.ajax("data/ca_measles.geojson", {
         dataType: "json",
         success: function(response){
           //reapply proportional symbol functions to new layer 
-          newLayer = L.geoJson(response, {
+          secondLayer = L.geoJson(response, {
               pointLayer: function(feature, latlng) {
                 //only uses one year of data
                 var attribute = "pop_2015";
@@ -339,7 +339,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 18,
     //uses mapbox streets as opposed to satellite imagery, etc.
-    id: 'mapbox.dark',
+    id: 'mapbox.light',
     //my unique access token
     accessToken: 'pk.eyJ1IjoiZW1pbGxpZ2FuIiwiYSI6ImNqczg0NWlxZTBia2U0NG1renZyZDR5YnUifQ.UxV3OqOsN6KuZsclo96yvQ'
 }).addTo(map);
@@ -351,7 +351,8 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 //make population a controllable layer
 function controlLayers(map){
     var overlayMaps = {
-        "Population": newLayer
+        "Pertussis": firstLayer,
+        "Measles": secondLayer
     };
 //toggle population points on and off
     L.control.layers(null, overlayMaps).addTo(map);

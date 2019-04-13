@@ -215,7 +215,7 @@ function calcPropRadius(attValue) {
 function createMap(){
     //zooms automatically to California
     var map = L.map('map', {
-        center: [36.7783, -119.4179],
+        center: [37.0783, -119.4179],
         zoom: 6
     });
 

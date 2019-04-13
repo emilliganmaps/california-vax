@@ -32,7 +32,7 @@ body {
     float: left;
 }
 
-.leaflet-popup-content p {
+.leaflet-popup-content {
     margin: 0.2em 0;
 }
 
