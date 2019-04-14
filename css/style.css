@@ -5,7 +5,7 @@ body {
 
 #map {
     height: 700px;
-    width: 600px;
+    width: 900px;
 }
 
 .sequence-control-container {
@@ -34,6 +34,17 @@ body {
 
 .leaflet-popup-content {
     margin: 0.2em 0;
+}
+
+.legend-control-container {
+    width: 400px;
+    height: 350px;
+    background-color: rgba(255,255,255,0.6);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    padding: 10px;
+    line-height: 45px;
+    text-align: center;
+    border: solid gray 1px;
 }
 
 * {box-sizing: border-box;}

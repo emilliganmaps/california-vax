@@ -68,7 +68,7 @@ function createLegend(map, attributes){
     
     var LegendControl = L.Control.extend({
         options: {
-            position: 'bottomright'
+            position: 'topright'
         },
 
         onAdd: function (map) {
@@ -92,7 +92,7 @@ function createLegend(map, attributes){
             for (var circle in circles){
                 //circle string
                 svg += '<circle class="legend-circle" id="' + circle + 
-                '" fill="#BA1125" fill-opacity="0.8" stroke="#A51126" cx="110"/>';
+                '" fill="#82008f" fill-opacity="0.6" stroke="#82008f" cx="110"/>';
                 
                 svg += '<text id="' + circle + '-text" x="250" y="' + circles[circle] + '"></text>';
             };
@@ -154,7 +154,7 @@ function getCircleValues(map, attribute){
 function updateLegend(map, attributes){
     var year = attributes.split("_")[0];
     //legend title
-    var content = "<strong>Pertussis Cases in " + year + "</strong>";
+    var content = "<strong>Cases in " + year + "</strong>";
     
     //cycle the legend with the slider bar
     $('#temporal-legend').html(content);
@@ -215,11 +215,11 @@ function pointToLayer(feature, latlng, attributes){
 	var attribute = attributes[0];
     
 	var geojsonMarkerOptions = {
-		fillColor: "#920229",
-        color: "#7E0828",
+		fillColor: "#82008f",
+        color: "#82008f",
 		weight: 1,
 		opacity: 1,
-		fillOpacity: 0.8
+		fillOpacity: 0.7
 	};
 	
 	var attValue = Number(feature.properties[attribute]);
@@ -281,13 +281,10 @@ function getNextLayer(map){
     //load the data
     $.ajax("data/ca_measles.geojson", {
         dataType: "json",
-        success: function(response){
-          //reapply proportional symbol functions to new layer 
-          secondLayer = L.geoJson(response, {
-              pointLayer: function(feature, latlng) {
-                //only uses one year of data
-                var attribute = "pop_2015";
-                var attValue = Number(feature.properties[attribute]);
+        success: function(response){  
+			//create an attributes array
+            var attributes = processData(response);
+                    createPropSymbols(response, map, attributes);
             
                 function calcPropRadius(attValue) {
                   //scale factor to adjust symbol size evenly
@@ -302,16 +299,15 @@ function getNextLayer(map){
                       
                 },
                   onEachFeature: function(feature, layer) {
-                          layer.bindPopup("<b>\nPopulation (2015): </b> " + feature.properties.pop_2015);
+                          layer.bindPopup("<p><b>County:</b> " + properties.county + "</p>");
                         },
                   createPropSymbols: function(data) {
                     var attribute = "pop_2015";
                   }
             }).addTo(map);
           controlLayers(map);
-		 }
-    });
 };
+
 
 //calculate the radius of each proportional symbol
 function calcPropRadius(attValue) {
@@ -339,20 +335,20 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 18,
     //uses mapbox streets as opposed to satellite imagery, etc.
-    id: 'mapbox.light',
+    id: 'mapbox.dark',
     //my unique access token
     accessToken: 'pk.eyJ1IjoiZW1pbGxpZ2FuIiwiYSI6ImNqczg0NWlxZTBia2U0NG1renZyZDR5YnUifQ.UxV3OqOsN6KuZsclo96yvQ'
 }).addTo(map);
     
         getData(map);
-        getNextLayer(map);
+
 };
 
 //make population a controllable layer
 function controlLayers(map){
     var overlayMaps = {
-        "Pertussis": firstLayer,
-        "Measles": secondLayer
+        "Pertussis": layer,
+        "Measles": newLayer
     };
 //toggle population points on and off
     L.control.layers(null, overlayMaps).addTo(map);
