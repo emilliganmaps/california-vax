@@ -5,7 +5,7 @@ body {
 
 #map {
     height: 700px;
-    width: 900px;
+    width: 1200px;
 }
 
 .sequence-control-container {
@@ -39,7 +39,7 @@ body {
 .legend-control-container {
     width: 400px;
     height: 350px;
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(130, 130, 130, 0.6);
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     padding: 10px;
     line-height: 45px;
