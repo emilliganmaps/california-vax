@@ -5,14 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="lib/leaflet/leaflet.css" crossorigin="">
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="ca-vax/lib/leaflet/leaflet.css" crossorigin="">
+    <link rel="stylesheet" href="ca-vax/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="ca-vax/css/style.css">
         
-    <script src="lib/leaflet/leaflet-src.js" crossorigin=""></script>
-    <script src="lib/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="lib/leaflet.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script src="ca-vax/lib/leaflet/leaflet-src.js" crossorigin=""></script>
+    <script src="ca-vax/lib/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="ca-vax/lib/leaflet.js"></script>
+    <script type="text/javascript" src="ca-vax/js/main.js"></script>
     
         
     
@@ -21,11 +21,25 @@
 
 	<body>
         
-        <br><h1 class="container, text-center">Spatial Clustering Analysis of Unvaccinated Kindergarteners in California</h1>
+        <br><h1 class="container, text-center">Spatial Clustering of Unvaccinated Kindergarteners in California</h1>
         <h4 class="container,  text-center">2001-2015</h4><br>
         
         <div class="container" align="center">
-        <p class="container, text-center">For the past 100+ years, vaccines have been revolutionizing healthcare. They provide a relatively low-cost, easy to attain preventative alternative to treatments for otherwise highlhy contagious and common diseases like chickenpox, measles, mumps, the flu, and diptheria. Just in the United States, vaccines are projected to save hundreds of thousands of lives and prevent millions of hospitalizations among children who were born between 1994-2014, but that doesn't stop people from being skeptical of their supposed side-effects. Misinformation runs rampant when it comes to vaccines, so many vaccine-preventable diseases continue to appear in outbreaks where they otherwise could have been eradicated. Pertussis, or whooping cough, is just one example of an easily preventable communicable disease. </p></div><br>
+        <p class="container, text-center">For the past 100+ years, vaccines have been revolutionizing healthcare. They provide a relatively low-cost, easy to attain preventative alternative to treatments for otherwise highlhy contagious and common diseases like chickenpox, measles, mumps, the flu, and diptheria. Just in the United States, vaccines are projected to save hundreds of thousands of lives and prevent millions of hospitalizations among children who were born between 1994-2014, but that doesn't stop people from being skeptical of their supposed side-effects. Misinformation runs rampant when it comes to vaccines, so many vaccine-preventable diseases continue to appear in outbreaks where they otherwise could have been eradicated.</p></div><br>
+        
+        <div class="container" align="center">
+        <p class="container, text-center">In a state like California, where there are many large, densely populated urban areas, the threat of outbreaks is all too real. Between 2001 and 2015, despite the number of kindergarten students increasing dramatically over time, the number of parents reporting that their children received all their mandatory vaccinations did not, which is why the overall percentage of kindergarteners who were considered fully vaccinated dipped ever lower until around 2013.</p></div><br>
+        
+        <div class="container" align="center">
+        <img src="ca-vax/img/numstudents.png"></div><br>
+        
+        <div class="container" align="center">
+            <p class="container, text-center">These trends are also evident when you examine them spatially. While outbreaks due typically occur in dense urban areas, you can see them spike in years during and following those especially low reported vaccination rates. This map visualizes cases of pertussis recorded by the California Department of Public Health, by county and year.</p></div><br>
+        
+        <div class="container" align="center">
+        <p class="container, text-center"><em>Click on a circle to identify the specific county and incident count. Click and drag the slider bar or the accompanying buttons to progress through time.</em></p></div></p></div><br>
+        
+        
             
         <div class="container" align="center" id="map"></div>
 
@@ -36,7 +50,7 @@
         <div class="container, text-center"><strong><h4>But to understand why vaccines are so important, you need to understand herd immunity.</h4></strong></div></div><br>
         
         <div class="container" align="center">
-        <img src="img/herdimmunity.png"></div><br>
+        <img src="ca-vax/img/herdimmunity.png"></div><br>
         
         <div class="container" align="center">
         <p class="container, text-center"><strong>Herd immunity</strong> is the idea that when most of the population is vaccinated, those who are to young, too sick, or otherwise medically unable to receive vaccines will be protected from the spread of contagious diseases. For most vaccine preventable diseases, this requires around <strong>85-95% of the population</strong> to be vaccinated.</p></div><br>
@@ -45,16 +59,16 @@
         <p class="container, text-center">Measles was initially declared eradicated in the United States in 2000. But as you can see, that can not necessarily be said any more. With the rise of vaccine hesitancy comes annual outbreaks of vaccine preventable diseases like measles and pertussis.</p></div><br>
         
         <div class="container" align="center">
-        <p class="container, text-center"><strong>Click on the blue circle below and slide from side to side to compare what school-level rates of kindergarteners who were up-to-date on their vaccinations looked like in 2001 versus 2015 for either pertussis or measles. Each dot on the map represents one school that reported its vaccination data to the state Department of Public Health in the given year. This means there are more than 7,000 schools visualized below.</strong></p></div><br>
+        <p class="container, text-center"><em>Click on the blue circle below and slide from side to side to compare what school-level rates of kindergarteners who were up-to-date on their vaccinations looked like in 2001 versus 2015 for either pertussis or measles. Each dot on the map represents one school that reported its vaccination data to the state Department of Public Health in the given year.</em></p></div><br>
         
         <div class="container">
             <div class="container"  align="left">
                 <div class="img-comp-container, col-6">
                     <div class="img-comp-img">
-                        <img src="img/pertussis_2001.png" width="470" height="600">
+                        <img src="ca-vax/img/pertussis_2001.png" width="470" height="600">
                     </div>
                     <div class="img-comp-img img-comp-overlay">
-                        <img src="img/pertussis_2015.png" width="470" height="600">
+                        <img src="ca-vax/img/pertussis_2015.png" width="470" height="600">
                     </div>
                 </div>
             </div>
@@ -62,16 +76,16 @@
             <div class="container"  align="right">
                 <div class="img-comp-container, col-6">
                     <div class="img-comp-img">
-                        <img src="img/measles_2001.png" width="470" height="600">
+                        <img src="ca-vax/img/measles_2001.png" width="470" height="600">
                     </div>
                     <div class="img-comp-img img-comp-overlay">
-                        <img src="img/measles_2015.png" width="470" height="600">
+                        <img src="ca-vax/img/measles_2015.png" width="470" height="600">
                     </div>
                 </div>
             </div>
         </div>
             
-        <script type="text/javascript" src="js/imageslider.js"></script>
+        <script type="text/javascript" src="ca-vax/js/imageslider.js"></script>
         
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             
@@ -80,7 +94,7 @@
         
         
         <div align="center">
-        <img class="fluid" src="img/onepercent.png"></div>
+        <img class="fluid" src="ca-vax/img/onepercent.png"></div>
             
         
         

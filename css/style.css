@@ -5,7 +5,7 @@ body {
 
 #map {
     height: 700px;
-    width: 1200px;
+    width: 600px;
 }
 
 .sequence-control-container {
@@ -38,13 +38,15 @@ body {
 
 .legend-control-container {
     width: 400px;
-    height: 350px;
-    background-color: rgba(130, 130, 130, 0.6);
+    height: 75px;
+    background-color: rgba(255,255,255,0.8);
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     padding: 10px;
     line-height: 45px;
     text-align: center;
     border: solid gray 1px;
+    color: black;
+    font-size: 2em;
 }
 
 * {box-sizing: border-box;}

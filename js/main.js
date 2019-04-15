@@ -1,182 +1,3 @@
-//function call to create the leaflet map
-function createMap(){
-    //zooms automatically to California
-    var map = L.map('map', {
-        center: [36.7783, -115.4179],
-        zoom: 6
-    });
-    
-    var pertussis = new L.geoJson().addTo(map);
-    var measles = new L.geoJson().addTo(map);
-    
-    getpertussisData(map, pertussis, measles);
-    getmeaslesData(map, pertussis, measles);
-
-    //mapbox basemap
-    var dark = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZW1pbGxpZ2FuIiwiYSI6ImNqczg0NWlxZTBia2U0NG1renZyZDR5YnUifQ.UxV3OqOsN6KuZsclo96yvQ', {
-        //map attribution
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 18,
-        //uses mapbox streets as opposed to satellite imagery, etc.
-        id: 'mapbox.dark',
-        //my unique access token
-        accessToken: 'pk.eyJ1IjoiZW1pbGxpZ2FuIiwiYSI6ImNqczg0NWlxZTBia2U0NG1renZyZDR5YnUifQ.UxV3OqOsN6KuZsclo96yvQ'
-    }).addTo(map);
-    
-    var light = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZW1pbGxpZ2FuIiwiYSI6ImNqczg0NWlxZTBia2U0NG1renZyZDR5YnUifQ.UxV3OqOsN6KuZsclo96yvQ', {
-        //map attribution
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 18,
-        //uses mapbox streets as opposed to satellite imagery, etc.
-        id: 'mapbox.light',
-        //my unique access token
-        accessToken: 'pk.eyJ1IjoiZW1pbGxpZ2FuIiwiYSI6ImNqczg0NWlxZTBia2U0NG1renZyZDR5YnUifQ.UxV3OqOsN6KuZsclo96yvQ'
-    }).addTo(map);
-
-    L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
-    return map;
-};
-
-//make diseases controllable layers
-function controlLayers(map){
-    var baseMaps = {
-        "Dark": dark,
-        "Light": light,
-    };
-    var overlayMaps = {
-        "Pertussis": pertussis,
-        "Measles": measles
-    };
-//toggle disease layers on and off
-    L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
-    return map;
-};
-
-
-//function to create popups instead of having popup definitions in multiple code blocks
-function createPopup(properties, attribute, layer, radius){
-    var popupContent = " ";
-    
-    if (properties.pertussis) {
-        popupContent += "<p><b>Number of reported pertussis cases in " + year + ":</b> " + properties[attribute];
-    } else
-    if (properties.measles) {
-        popupContent += "<p><b>Number of reported measles cases in " + year + ":</b> " + properties[attribute];
-    }
-    
-    layer.bindPopup(popupContent, {
-        offset: new L.Point(0,-radius)
-    });
-};
-
-//function for updating proportional symbols for pertussis
-function updatePropSymbolsPertussis(pertussisSize, map, attribute){
-    pertussisSize.eachLayer(function(layer){
-        if (layer.feature && layer.feature.properties[attribute]){
-            //access feature properties
-            var props = layer.feature.properties;
-
-            //update each feature's radius based on new attribute values
-            var radius = calcPropRadius(props[attribute]);
-            
-            layer.setRadius(radius);
-            
-            //consolidates popup references
-            createPopup(props, attribute, layer, radius);
-        };
-	});
-};
-
-//function for updating proportional symbols for measles
-function updatePropSymbolsMeasles(measlesSize, map, attribute){
-    measlesSize.eachLayer(function(layer){
-        if (layer.feature && layer.feature.properties[attribute]){
-            //access feature properties
-            var props = layer.feature.properties;
-
-            //update each feature's radius based on new attribute values
-            var radius = calcPropRadius(props[attribute]);
-            
-            layer.setRadius(radius);
-            
-            //consolidates popup references
-            createPopup(props, attribute, layer, radius);
-        };
-	});
-};
-
-//create function to make the proportional symbols of a certain color, fill, opacity, etc
-function pointToLayer(feature, latlng, attributes){
-	
-	var attribute = attributes[0];
-    
-    if (feature.properties.Pertussis){
-        var geojsonMarkerOptions = {
-            fillColor: "#82008f",
-            color: "#82008f",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.7
-        };
-    } else if (feature.properties.Measles){
-        var geojsonMarkerOptions = {
-            fillColor: "#ff5341",
-            color: "#ff5341",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.7
-        };
-    }
-
-	var attValue = Number(feature.properties[attribute]);
-	
-    geojsonMarkerOptions.radius = calcPropRadius(attValue);
-    
-    var layer = L.circleMarker(latlng, geojsonMarkerOptions);
-	
-	createPopup(feature.properties, attribute, layer, geojsonMarkerOptions.radius);
-	
-    //layer.on({
-        //mouseover: function(){
-            //this.openPopup();
-            //this.setStyle({color: "white", weight: 3});
-        //},
-        //mouseout: function(){
-            //this.closePopup();
-            //this.setStyle({color: "gray", weight: 1});
-        //}
-    //});
-    
-	return layer;		
-};
-
-//calculate proportional symbol radius
-function calcPropRadius(attValue){
-    var scaleFactor = 15;
-    var area = attValue * scaleFactor;
-    var radius = (Math.sqrt(area/Math.PI))*(2);
-    return radius;
-};
-
-//create proportional symbols for pertussis
-function createPropSymbolsPertussis(data, pertussis, attributes){
-	//adjusts the symbols for each data point to reflect its value using the calcPropRadius function results
-	pertussisSize = L.geoJson(data, {
-		pointToLayer: function(feature,latlng){
-			return pointToLayer(feature,latlng,attributes);
-		}
-	}).addTo(pertussis);
-};
-//create proportional symbols for measles
-function createPropSymbolsMeasles(data, measles, attributes){
-	//adjusts the symbols for each data point to reflect its value using the calcPropRadius function results
-	measlesSize = L.geoJson(data, {
-		pointToLayer: function(feature,latlng){
-			return pointToLayer(feature,latlng,attributes);
-		}
-	}).addTo(measles);
-};
-	
 function createSequenceControls(map, attributes){   
     var SequenceControl = L.Control.extend({
         options: {
@@ -214,8 +35,7 @@ function createSequenceControls(map, attributes){
             $('.range-slider').on('input', function(){
                 var index = $(this).val();
             //update symbols as slider moves   
-                updatePropSymbolsPertussis(pertussisSize, map, attributes[index]);
-                updatePropSymbolsMeasles(measlesSize, map, attributes[index]);
+                updatePropSymbols(map, attributes[index]);
                 updateLegend(map, attributes[index]);
             });
             
@@ -238,15 +58,50 @@ function createSequenceControls(map, attributes){
                 //update slider
                 $('.range-slider').val(index);
                 //update symbols
-                updatePropSymbolsPertussis(pertussisSize, map, attributes[index]);
-                updatePropSymbolsMeasles(measlesSize, map, attributes[index]);
+                updatePropSymbols(map, attributes[index]);
                 updateLegend(map, attributes[index]);
         });     
 };
 
+//function to create a dynamic map legend
+function createLegend(map, attributes){
+    
+    var LegendControl = L.Control.extend({
+        options: {
+            position: 'topright'
+        },
+
+        onAdd: function (map) {
+            // create the control container with a particular class name
+            var container = L.DomUtil.create('div', 'legend-control-container');
+
+            //add temporal legend div to container
+            $(container).append('<div id="temporal-legend">')
+
+            //start attribute legend svg string
+            var svg = '<svg id="attribute-legend" width="300px" height="100px">';
+
+            //close svg string
+            svg += "</svg>";
+
+            //add attribute legend svg to container
+            $(container).append(svg);
+            
+            //disable propagation from clicking on the legend
+            L.DomEvent.disableClickPropagation(container);
+            return container;
+        }
+        
+    });
+
+    map.addControl(new LegendControl());
+    
+    updateLegend(map, attributes[0]);
+            
+};
 
 //calculate the max, mean, and min values for a given attribute
-function getCircleValuesPertussis(map, attribute){
+function getCircleValues(map, attribute){
     //start with min at highest possible and max at lowest possible number
     var min = Infinity,
         max = -Infinity;
@@ -278,42 +133,89 @@ function getCircleValuesPertussis(map, attribute){
         min: min
     };
 };
-//calculate the max, mean, and min values for a given attribute
-function getCircleValuesMeasles(map, attribute){
-    //start with min at highest possible and max at lowest possible number
-    var min = Infinity,
-        max = -Infinity;
 
-    map.eachLayer(function(layer){
-        //get the attribute value
-        if (layer.feature){
-            var attributeValue = Number(layer.feature.properties[attribute]);
+//update the temporal legend with slider bar
+function updateLegend(map, attributes){
+    var year = attributes.split("_")[0];
+    //legend title
+    var content = "<strong>Pertussis Cases in " + year + "</strong>";
+    
+    //cycle the legend with the slider bar
+    $('#temporal-legend').html(content);
+    
+    //retrieves max/mean/min values
+    var circleValues = getCircleValues(map, attributes);
+    
+    for (var key in circleValues){
+        //get the radius
+        var radius = calcPropRadius(circleValues[key]);
+        
+        //nests the circles from the bottom up at a point
+        $('#'+key).attr({
+            cy: 250 - radius,
+            r: radius
+        });
 
-            //test for min
-            if (attributeValue < min){
-                min = attributeValue;
-            };
-
-            //test for max
-            if (attributeValue > max){
-                max = attributeValue;
-            };
-        };
-    });
-
-    //set mean
-    var mean = (max + min) / 2;
-
-    //return values as an object
-    return {
-        max: max,
-        mean: mean,
-        min: min
+        //add legend text
+        $('#'+key+'-text').text(Math.round(circleValues[key]*100)/100 + " cases");
     };
+    
 };
 
+//function to create popups instead of having popup definitions in multiple code blocks
+function createPopup(properties, attribute, layer, radius){
+    //defines the county
+    var popupContent = "<p><b>County:</b> " + properties.county + "</p>";
+    //defines the year
+    var year = attribute.split("_")[0];
+    //how the popup reads th number of pertussis cases
+    popupContent += "<p><b>Number of reported pertussis cases in " + year + ":</b> " + properties[attribute];
+    
+    layer.bindPopup(popupContent, {
+        offset: new L.Point(0,-radius)
+    });
+};
 
+//function for updating proportional symbols
+function updatePropSymbols(map, attribute){
+    map.eachLayer(function(layer){
+        if (layer.feature && layer.feature.properties[attribute]){
+            //access feature properties
+            var props = layer.feature.properties;
 
+            //update each feature's radius based on new attribute values
+            var radius = calcPropRadius(props[attribute]);
+            layer.setRadius(radius);
+            
+            //consolidates popup references
+            createPopup(props, attribute, layer, radius);
+        };
+	});
+};
+
+//create function to make the proportional symbols of a certain color, fill, opacity, etc
+function pointToLayer(feature, latlng, attributes){
+	
+	var attribute = attributes[0];
+    
+	var geojsonMarkerOptions = {
+		fillColor: "#ea0c5f",
+        color: "#ea0c5f",
+		weight: 1,
+		opacity: 1,
+		fillOpacity: 0.8
+	};
+	
+	var attValue = Number(feature.properties[attribute]);
+	geojsonMarkerOptions.radius = calcPropRadius(attValue);
+    
+    layer = L.circleMarker(latlng, geojsonMarkerOptions);
+	
+	createPopup(feature.properties, attribute, layer, geojsonMarkerOptions.radius);
+	
+	return layer;		
+};
+		
 //process data
 function processData(data){
     //empty array to hold attributes
@@ -333,33 +235,64 @@ function processData(data){
     return attributes;
 };
 
+//create proportional symbols
+function createPropSymbols(data, map, attributes){
+	//adjusts the symbols for each data point to reflect its value using the calcPropRadius function results
+	L.geoJson(data, {
+		pointToLayer: function(feature,latlng){
+			return pointToLayer(feature,latlng,attributes);
+		}
+	}).addTo(map);
+};
+
 //function to retrieve the data and place it on the map
-function getpertussisData(map, pertussis, measles){
+function getData(map){
     //load the data from the pertussis json
     $.ajax("data/ca_pertussis.geojson", {
         dataType: "json",
         success: function(response){  
 			//create an attributes array
             var attributes = processData(response);
-                    createPropSymbolsPertussis(response, pertussis, attributes);
-		}
-    });
-};
-//function to retrieve the data and place it on the map
-function getmeaslesData(map, pertussis, measles){
-    //load the data from the measles json
-    $.ajax("data/ca_measles.geojson", {
-        dataType: "json",
-        success: function(response){  
-			//create an attributes array
-            var attributes = processData(response);
-                    createPropSymbolsMeasles(response, measles, attributes);
-                    createSequenceControls(map, pertussis, measles, attributes);
-                    createLegend(map, pertussis, measles, attributes);
+                    createPropSymbols(response, map, attributes);
+                    createSequenceControls(map, attributes);
+                    createLegend(map, attributes);
 		}
     });
 };
 
+//calculate the radius of each proportional symbol
+function calcPropRadius(attValue) {
+    //scale factor to adjust symbol size evenly
+    var scaleFactor = 15;
+    //area based on attribute value and scale factor
+    var area = attValue * scaleFactor;
+    //radius calculated based on area
+    var radius = Math.sqrt(area/Math.PI);
+
+    return radius;
+}; 
+
+//function call to create the leaflet map
+function createMap(){
+    //zooms automatically to California
+    var map = L.map('map', {
+        center: [37.283, -118.8179],
+        zoom: 6
+    });
+
+//mapbox basemap
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZW1pbGxpZ2FuIiwiYSI6ImNqczg0NWlxZTBia2U0NG1renZyZDR5YnUifQ.UxV3OqOsN6KuZsclo96yvQ', {
+    //map attribution
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    //uses mapbox streets as opposed to satellite imagery, etc.
+    id: 'mapbox.dark',
+    //my unique access token
+    accessToken: 'pk.eyJ1IjoiZW1pbGxpZ2FuIiwiYSI6ImNqczg0NWlxZTBia2U0NG1renZyZDR5YnUifQ.UxV3OqOsN6KuZsclo96yvQ'
+}).addTo(map);
+    
+        getData(map);
+};
 
 //create map when everything has been intialized
 $(document).ready(createMap);
