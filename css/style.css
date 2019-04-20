@@ -1,11 +1,52 @@
 body {
     background-color: black;
     color: white;
+    font-family: 'Lato', sans-serif;
 }
 
 #map {
     height: 700px;
     width: 600px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+.column {
+  flex: 33%;
+  max-width: 33%;
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 800px) {
+  .column {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    flex: 100%;
+    max-width: 100%;
+  }
 }
 
 .sequence-control-container {
@@ -17,6 +58,7 @@ body {
     line-height: 20px;
     text-align: center;
     border: solid gray 1px;
+    font-family: 'Lato', sans-serif;
 }
 
 .range-slider {
@@ -47,6 +89,7 @@ body {
     border: solid gray 1px;
     color: black;
     font-size: 2em;
+    font-family: 'Lato', sans-serif;
 }
 
 * {box-sizing: border-box;}

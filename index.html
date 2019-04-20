@@ -5,16 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="ca-vax/lib/leaflet/leaflet.css" crossorigin="">
-    <link rel="stylesheet" href="ca-vax/css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="ca-vax/css/style.css">
+    <link rel="stylesheet" href="lib/leaflet/leaflet.css" crossorigin="">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
         
-    <script src="ca-vax/lib/leaflet/leaflet-src.js" crossorigin=""></script>
-    <script src="ca-vax/lib/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="ca-vax/lib/leaflet.js"></script>
-    <script type="text/javascript" src="ca-vax/js/main.js"></script>
+    <script src="lib/leaflet/leaflet-src.js"></script>
+    <script src="lib/leaflet/leaflet.js"></script>
+    <script src="lib/jquery-3.3.1.js"></script>
+    <script src="lib/bootstrap.js"></script>
+    <script src="lib/leaflet.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
     
-        
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">    
     
         
     </head>
@@ -22,53 +24,61 @@
 	<body>
         
         <br><h1 class="container, text-center">Spatial Clustering of Unvaccinated Kindergarteners in California</h1>
-        <h4 class="container,  text-center">2001-2015</h4><br>
+        <h4 class="container,  text-center">2001-2015</h4><br><br>
         
         <div class="container" align="center">
-        <p class="container, text-center">For the past 100+ years, vaccines have been revolutionizing healthcare. They provide a relatively low-cost, easy to attain preventative alternative to treatments for otherwise highlhy contagious and common diseases like chickenpox, measles, mumps, the flu, and diptheria. Just in the United States, vaccines are projected to save hundreds of thousands of lives and prevent millions of hospitalizations among children who were born between 1994-2014, but that doesn't stop people from being skeptical of their supposed side-effects. Misinformation runs rampant when it comes to vaccines, so many vaccine-preventable diseases continue to appear in outbreaks where they otherwise could have been eradicated.</p></div><br>
+        <p class="container, text-center"><h4>For the past 100+ years, vaccines have been revolutionizing healthcare. They provide a relatively low-cost, easy to attain preventative alternative to treatments for otherwise highly contagious and common diseases like chickenpox, measles, mumps, the flu, and diptheria. Just in the United States, vaccines are projected to save hundreds of thousands of lives and prevent millions of hospitalizations among children who were born between 1994-2014.</h4></p></div><br>
+    
+        <div class="container" align="center">
+        <p class="container, text-center"><h4>There are 5 vaccinations which are typically mandatory for children entering kindergarten:</h4></p></div>
+    
+        <div class="container" align="center">
+        <img src=img/reqvax.png></div>
+    
+        <div class="container" align="center">
+        <p class="container, text-center"><h4>Despite all of the strides forward that have been made in public health since the advent of vaccinations, the mission to get all children vaccinated is an uphill battle. Misinformation runs rampant when it comes to vaccines, so many vaccine-preventable diseases continue to appear in outbreaks where they otherwise could have been eradicated. Measles was initially declared eliminated in the United States in 2000. That can not necessarily be said any more, as with the rise of vaccine hesitancy comes annual outbreaks of vaccine preventable diseases like measles and pertussis.</h4></p></div><br>
+        
+        <div class="container">
+        <div class="container, text-center"><strong><h4>To understand why vaccines are so important, you need to understand herd immunity.</h4></strong></div></div><br>
         
         <div class="container" align="center">
-        <p class="container, text-center">In a state like California, where there are many large, densely populated urban areas, the threat of outbreaks is all too real. Between 2001 and 2015, despite the number of kindergarten students increasing dramatically over time, the number of parents reporting that their children received all their mandatory vaccinations did not, which is why the overall percentage of kindergarteners who were considered fully vaccinated dipped ever lower until around 2013.</p></div><br>
+        <img src="img/herdimmunity.png"></div><br>
         
         <div class="container" align="center">
-        <img src="ca-vax/img/numstudents.png"></div><br>
+        <p class="container, text-center"><h4><strong>Herd immunity</strong> is the idea that when most of the population is vaccinated, those who are to young, too sick, or otherwise medically unable to receive vaccines will be protected from the spread of contagious diseases. Most epidemiologists agree that this requires around <strong>95% of the population</strong> to be vaccinated. This creates a sort of human immunity buffer around those whose health is most vulnerable. And given that only about 3% of the population has valid reason to claim a medical exemption from receiving vaccinations, this should be no problem.</h4></p></div><br>
+
         
         <div class="container" align="center">
-            <p class="container, text-center">These trends are also evident when you examine them spatially. While outbreaks due typically occur in dense urban areas, you can see them spike in years during and following those especially low reported vaccination rates. This map visualizes cases of pertussis recorded by the California Department of Public Health, by county and year.</p></div><br>
+        <p class="container, text-center"><h4>However, prior to 2016, California allowed parents to claim personal belief exemptions -- and between 2013 and 2015, specific religious belief exemptions -- to prevent their children from receiving the vaccines mandated by the state for children to be enrolled in school.</h4></p></div><br>
+
+        <div class="container" align="center">
+        <img src="img/numstudents.png"></div><br>
+
+        <div class="container" align="center">
+        <p class="container, text-center"><h4>Compare the data on the interactive map below with the chart depicting the number of kindergarten students in California and the percentage of them that were considered up-to-date on their vaccinations between 2001 and 2015. Between 2010 and 2015, it is clear that some years saw a drastic decrease in the percentage of children receiving vaccinations, despite the uptick in number of kindergarten students.</h4></p></div><br><br>
         
         <div class="container" align="center">
         <p class="container, text-center"><em>Click on a circle to identify the specific county and incident count. Click and drag the slider bar or the accompanying buttons to progress through time.</em></p></div></p></div><br>
         
-        
-            
-        <div class="container" align="center" id="map"></div>
+        <div class="container" align="center" id="map"></div><br>
 
-        <div class="container" align="center"><br><p>The question is, do children whose parents have chosen not to vaccinate them (prior to 2016, this meant claiming a personal or religious belief exemption) end up clustering in certain schools or regions? And, if these clusters exist, might they be the cause of outbreaks of contagious, vaccine preventable diseases? </p><br></div>
+        <div class="container" align="center">
+        <p class="container, text-center"><h4>The maps below visualize California schools, public and private, between the years 2001 and 2015. Each dot represents one school that reported vaccination data to the state and its geocoded location.* There is one map per year for each of the two diseases we examined: pertussis and measles. The same data was used to create both maps: the percentage of kindergarten students who were considered up-to-date on their mandatory vaccinations in the given year. However, the data is classified differently: the theoretical herd immunity threshold for pertussis is set at 85% and the threshold for measles is set at 95%. The general conclusion we can draw from these maps is that, while the overall percentage of children who were up to date on their vaccinations may have increased over the years, and thus the number of schools who fell somewhere in the middle as far as immunity goes went down, there are now more schools that fall in one of the extremes: almost all their students or vaccinated, or dangerously few of them are.</h4></p></div><br>
 
-        
-        <div class="col-12">
-        <div class="container, text-center"><strong><h4>But to understand why vaccines are so important, you need to understand herd immunity.</h4></strong></div></div><br>
+        <div class="container" align="center">
+        <img src="img/scalebar.png"></div><br>
         
         <div class="container" align="center">
-        <img src="ca-vax/img/herdimmunity.png"></div><br>
-        
-        <div class="container" align="center">
-        <p class="container, text-center"><strong>Herd immunity</strong> is the idea that when most of the population is vaccinated, those who are to young, too sick, or otherwise medically unable to receive vaccines will be protected from the spread of contagious diseases. For most vaccine preventable diseases, this requires around <strong>85-95% of the population</strong> to be vaccinated.</p></div><br>
-        
-        <div class="container" align="center">
-        <p class="container, text-center">Measles was initially declared eradicated in the United States in 2000. But as you can see, that can not necessarily be said any more. With the rise of vaccine hesitancy comes annual outbreaks of vaccine preventable diseases like measles and pertussis.</p></div><br>
-        
-        <div class="container" align="center">
-        <p class="container, text-center"><em>Click on the blue circle below and slide from side to side to compare what school-level rates of kindergarteners who were up-to-date on their vaccinations looked like in 2001 versus 2015 for either pertussis or measles. Each dot on the map represents one school that reported its vaccination data to the state Department of Public Health in the given year.</em></p></div><br>
+        <p class="container, text-center"><em>Click on the blue circle situated in the center of each map and slide from side to side to compare school-level vaccination levels. </em></p></div><br>
         
         <div class="container">
             <div class="container"  align="left">
                 <div class="img-comp-container, col-6">
                     <div class="img-comp-img">
-                        <img src="ca-vax/img/pertussis_2001.png" width="470" height="600">
+                        <img src="img/pertussis_2001.png" width="470" height="600">
                     </div>
                     <div class="img-comp-img img-comp-overlay">
-                        <img src="ca-vax/img/pertussis_2015.png" width="470" height="600">
+                        <img src="img/pertussis_2015.png" width="470" height="600">
                     </div>
                 </div>
             </div>
@@ -76,30 +86,42 @@
             <div class="container"  align="right">
                 <div class="img-comp-container, col-6">
                     <div class="img-comp-img">
-                        <img src="ca-vax/img/measles_2001.png" width="470" height="600">
+                        <img src="img/measles_2001.png" width="470" height="600">
                     </div>
                     <div class="img-comp-img img-comp-overlay">
-                        <img src="ca-vax/img/measles_2015.png" width="470" height="600">
+                        <img src="img/measles_2015.png" width="470" height="600">
                     </div>
                 </div>
             </div>
         </div>
             
-        <script type="text/javascript" src="ca-vax/js/imageslider.js"></script>
+        <script type="text/javascript" src="js/imageslider.js"></script>
         
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            
+         
+
         <div class="container" align="center">
-        <p class="container, text-center">As you can see, the same "hot spots" appear in the same areas of the state in both maps, such as in Sacramento and Santa Cruz; in other words, areas which are undervaccinated have the potential to cause outbreaks no matter what disease is in question. Pertussis has a lower threshold for herd immunity than measles (85% versus 95% must be vaccinated), so although the same data is used in both maps, the data classification is different.</p></div><br>
-        
-        
-        <div align="center">
-        <img class="fluid" src="ca-vax/img/onepercent.png"></div>
-            
-        
-        
-        <div class="container, text-center">
+        <h5 class="container, text-center"><em>To view the entire map series that was designed for this project, click <a href="ca-maps.html">here</a>.</em></h5></div><br>
+
+        <div class="container" align="center">
+        <p class="container, text-center"><h4>This trend towards the extremes is especially evident in the maps representing theoretical pertussis immunity. The map appears darker overall; since the color classifications are designed to create visual hot spots representative of high rates of unvaccinated children, this may lead one to assume that a higher percentage of the population is vaccinated, when this is really not the case. Rather, there are now more distinct spatial clusters of unvaccinated children. This many unvaccinated or under-vaccinated individuals in close proximity is a serious threat to public health when even one child comes down with pertussis or measles. </h4></p></div><br>
+
+        <div class="container" align="center">
+        <img src="img/dtap_county.png"></div>
+
+
+        <div class="container" align="center">
+        <p class="container, text-center"><h4>Since California tightened vaccination regulations in 2016 by eliminating personal and religious belief exemptions, which leaves only medical exemptions as a valid reason for a child to not receive vaccinations, one would expect that vaccination rates would rise. And this is true -- but not without some unexpected side consequences. Medical exemptions have quadrupled since the new law took effect. And again, given that no more than 3% of the population realistically needs these medical exemptions, it is clear that the new laws have lead some parents to take drastic measures to prevent their children from being vaccinated.</h4></p></div><br>
+
+        <div class="container" align="center">
+        <p class="container, text-center"><h4>Despite this discouraging side effect of the new vaccine laws, vaccination rates have, overall, gone up, with over 95% of the kindergarten population being reported as fully up-to-date on vaccinations for the 2017-2018 school year. While this looks like herd immunity has been achieved on a broad scale, these spatial analyses show that spatial clusters of unvaccinated children can cause serious public health threats. These clusters are something to be wary of as epidemiologists and public health scientists in California, and across the United States, look for ways to combat the vaccine hesitancy crisis.</h4></p></div><br><br><br>
+
+
+        <div class="container" align="center">
+            <p>All maps and graphics created by <a href=https://emilliganmaps.github.io>Ellie Milligan</a></p>
+            <p>For completion of the Master of Science degree in Cartography and Geographic Information Systems at the University of Wisconsin - Madison in April 2019, in conjunction with Dr. Malia Jones and the University of Wisconsin Applied Population Lab.</p>
             <p>Data Sources: <a href=https://data.chhs.ca.gov/dataset/vaccine-preventable-disease-cases-by-county-and-year>California Department of Public Health</a>, <a href=https://www.cdc.gov/media/releases/2014/p0424-immunization-program.html>Centers for Disease Control and Prevention</a>, <a href=https://www.vaccines.gov/diseases/index.html>Vaccines.gov</a>, <a href=https://www.shotsforschool.org/k-12>ShotsForSchool.org</a></p>
+            <p>Maps: Data from the <a href=https://data.chhs.ca.gov/dataset/vaccine-preventable-disease-cases-by-county-and-year>California Department of Public Health</a>, <a href="https://www.cde.ca.gov/schooldirectory">California Department of Education</a>, <a href="https://www.naturalearthdata.com">Natural Earth Data</a>, and <a href="https://data.ca.gov/dataset/ca-geographic-boundaries">Data.gov </a>// Projection: NAD 1983 HARN California Teale Albers</p>
         </div><br>
 
         
